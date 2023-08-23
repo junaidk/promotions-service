@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Promotions API
+  description: An API to injest and retrive promotion data
+
+servers:
+  - url: http://<tbd>.com
+tags:
+  - name: Admin
+  - name: Promotions
+paths:
+  /v1/admin/switch-db:
+    post:
+      tags:
+        - Admin
+      responses:
+        '200':
+          description: Successful response
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/admin/process-csv:
+    post:
+      tags:
+        - Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProcessCsv"
+      responses:
+        '200':
+          description: Successful response
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /v1/promotions/{id}:
+    get:
+      tags:
+        - Promotions
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Promotion'
+        '404':
+          description: Not found error
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Promotion:
+      type: object
+      properties:
+        id:
+          type: string
+        price:
+          type: string
+        expiration_date:
+          type: string
+    ProcessCsv:
+      type: object
+      properties:
+        file_path:
+          type: string
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+        error:
+          type: string
