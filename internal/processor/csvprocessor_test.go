@@ -24,11 +24,11 @@ func TestCsvFile_Process(t *testing.T) {
 		t.Errorf("error should be nil %s", err)
 	}
 
-	if db.Len() != 199999 {
-		t.Errorf("len should be %d, is %d", 199999, db.Len())
+	if db.Len() != 100000 {
+		t.Errorf("len should be %d, is %d", 100000, db.Len())
 	}
 
-	val := db.Get("6ecc8087-74ad-4e8c-a63d-7ea42cd4b811")
+	val := db.Get("0ce67819-733d-46e8-ad96-bf032c2731b4")
 
 	if val == nil {
 		t.Errorf("val should not be nil")
